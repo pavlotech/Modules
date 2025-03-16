@@ -1,0 +1,21 @@
+services:
+    app:
+        build:
+            dockerfile: Dockerfile
+        container_name: modules_container
+        volumes:
+            - ./app
+        ports:
+            - "4000:4000"
+        environment:
+            NODE_ENV: development
+            APP_ROOT: /app
+        env_file:
+            - .env
+        command: [ "sh", "-c", "echo 'starting server' && bun --hot index.ts" ]
+        networks:
+            - app-network
+
+networks:
+    app-network:
+        driver: bridge
